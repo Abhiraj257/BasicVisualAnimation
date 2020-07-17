@@ -1,62 +1,48 @@
 import React, { useEffect } from 'react'
 import gsap from 'gsap'
+import { Route } from 'react-router-dom'
 
 import './styles/App.scss'
 import Header from './components/Header'
-import Banner from './components/Banner'
-import Cases from './components/Cases'
-import IntroOverlay from './components/introOverlay'
+import CaseStudies from './pages/caseStudies'
+import Approach from './pages/approach'
+import About from './pages/about'
+import Services from './pages/services'
+
+import Home from './pages/Home'
+import Navigation from './components/Navigation'
+
+const Routes = [
+  { path: '/', comp: Home },
+  { path: '/case-studies', comp: CaseStudies },
+  { path: '/about-us', comp: About },
+  { path: '/approach', comp: Approach },
+  { path: '/services', comp: Services }
+]
 
 function App() {
   useEffect(() => {
     // let vh = window.innerHeight * 0.01
     // document.documentElement.style.setProperty('--vh', `${vh}px`)
 
-    gsap.to('body', 0, { css: { visibility: 'visible' } })
-
-    const tl = gsap.timeline()
-
-    tl.from('.line span', 1.8, {
-      skewY: 7,
-      y: 70,
-      stagger: {
-        amount: 0.3
-      },
-      ease: 'power4.out'
-    })
-      .to('.overlay-top', 1.6, {
-        height: 0,
-        ease: 'expo.inOut',
-        stagger: {
-          amount: 0.4
-        }
-      })
-      .to('.overlay-bottom', 1.6, {
-        width: 0,
-        ease: 'expo.inOut',
-        stagger: {
-          amount: 0.4
-        },
-        delay: -0.8
-      })
-      .to('.intro-overlay', 0, { css: { display: 'none' } })
-      .from('.case-image img', 1.6, {
-        scale: 1.4,
-        stagger: {
-          amount: 0.4
-        },
-        delay: -2,
-        ease: 'expo.inOut'
-      })
+    gsap.to('body', 0.01, { css: { visibility: 'visible' } })
   })
 
   return (
-    <div className='App'>
-      <IntroOverlay />
+    <>
       <Header />
-      <Banner />
-      <Cases />
-    </div>
+      <div className='App'>
+        {Routes.map(route => (
+          <Route
+            exact
+            path={route.path}
+            component={route.comp}
+            key={route.path}
+          />
+        ))}
+      </div>
+      <Navigation />
+    </>
   )
 }
 

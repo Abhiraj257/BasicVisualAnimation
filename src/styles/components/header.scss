@@ -16,17 +16,40 @@
       text-transform: uppercase;
     }
   }
-  .nav {
-    width: 25px;
-    @include media("<=phone") {
-      width: 25px;
+  .nav-toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    @include media("<=tablet") {
+      margin-right: 24px;
     }
-    span {
-      display: block;
-      height: 2px;
-      margin-bottom: 0.3rem;
-      background-color: $black;
-      width: 100%;
+    @include media("<=phone") {
+      margin-right: 16px;
+      width: 20px;
+    }
+    .hamburger-menu {
+      width: 25px;
+      span {
+        display: block;
+        height: 2px;
+        margin-bottom: 0.3rem;
+        background-color: $black;
+        width: 100%;
+      }
+    }
+    .hamburger-menu-close {
+      position: absolute;
+      display: none;
+      svg {
+        @include media("<=tablet") {
+          width: 56px;
+        }
+        @include media("<=phone") {
+          width: 48px;
+        }
+      }
     }
   }
 }
